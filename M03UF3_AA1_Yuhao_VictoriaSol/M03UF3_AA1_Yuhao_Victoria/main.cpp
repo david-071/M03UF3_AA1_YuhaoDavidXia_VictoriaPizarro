@@ -41,7 +41,7 @@ int main() {
 	while (!otro) {
 		std::cout << "Pon un FUCKING numero mamon" << "\n";
 		std::cin >> inputY;
-		if (inputX == '0' || inputX == '1' || inputX == '2') {
+		if (inputY == 0 || inputY == 1 || inputY == 2) {
 			otro = true;
 		}
 		else {
