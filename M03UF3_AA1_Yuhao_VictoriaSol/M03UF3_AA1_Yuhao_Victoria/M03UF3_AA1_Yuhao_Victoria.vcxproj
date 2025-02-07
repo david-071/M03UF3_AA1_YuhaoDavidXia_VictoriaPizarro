@@ -127,7 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="elegirCasilla.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="tablero.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="elegirCasilla.h" />
+    <ClInclude Include="tablero.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
