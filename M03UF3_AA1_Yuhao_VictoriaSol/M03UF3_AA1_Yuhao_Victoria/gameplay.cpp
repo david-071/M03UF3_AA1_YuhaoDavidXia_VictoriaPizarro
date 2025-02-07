@@ -1,13 +1,7 @@
 #include <iostream>
 #include <vector>
-#include "constants.h"
 
-int main() {
-	
-	char table[ROWS][COLUMNS];
-	char inputX;
-	char inputY;
-	bool otro = true;
+void gameplay(char tablero, char inputX, char inputY, bool otro) {
 
 	std::cout << "Pon un numero\n";
 	std::cin >> inputX;
@@ -46,4 +40,5 @@ int main() {
 		}
 	}
 
+	tablero[inputX][inputY] = 'X';
 }
