@@ -25,7 +25,7 @@ void playerInputs(char table[ROWS][COLUMNS], int& playerInputX, int& playerInput
 	}
 }
 
-void player(char table[ROWS][COLUMNS], int &playerInputX, int &playerInputY) {
+void player(char table[ROWS][COLUMNS], int &playerInputX, int &playerInputY, int &turn) {
 
 	while (table[playerInputX][playerInputY] != 'a') {
 		std::cout << "Ya hay una pieza en la posicion elegida" << std::endl;
@@ -33,10 +33,15 @@ void player(char table[ROWS][COLUMNS], int &playerInputX, int &playerInputY) {
 	}
 
 	table[playerInputX][playerInputY] = 'X';
+	turn++;
 
 }
 
-void ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY) {
+int ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY, int &turn) {
+
+	if (turn == 9) {
+		return 0;
+	}
 
 	srand(time(NULL));
 
@@ -49,6 +54,7 @@ void ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY) {
 	}
 
 	table[iaInputX][iaInputY] = 'O';
+	turn++;
 }
 
 int main() {
@@ -74,8 +80,8 @@ int main() {
 	while (turn < 9) {
 
 		playerInputs(table, playerInputX, playerInputY);
-		player(table, playerInputX, playerInputY);
-		ia(table, iaInputX, iaInputY);
+		player(table, playerInputX, playerInputY, turn);
+		ia(table, iaInputX, iaInputY, turn);
 
 		for (int i = 0; i < COLUMNS; i++) {
 			for (int j = 0; j < ROWS; j++) {
@@ -83,6 +89,6 @@ int main() {
 			}
 			std::cout << std::endl;
 		}
-		turn++;
 	}
+	std::cout << "Termina";
 }
