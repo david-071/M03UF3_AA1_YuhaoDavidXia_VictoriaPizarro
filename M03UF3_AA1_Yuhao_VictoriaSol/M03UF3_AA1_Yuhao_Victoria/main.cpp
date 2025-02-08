@@ -4,6 +4,7 @@
 
 #define ROWS 3
 #define COLUMNS 3
+#define WHAT 13
 
 void playerInputs(char table[ROWS][COLUMNS], int& playerInputX, int& playerInputY) {
 
@@ -27,7 +28,7 @@ void playerInputs(char table[ROWS][COLUMNS], int& playerInputX, int& playerInput
 
 void player(char table[ROWS][COLUMNS], int &playerInputX, int &playerInputY, int &turn) {
 
-	while (table[playerInputX][playerInputY] != 'a') {
+	while (table[playerInputX][playerInputY] != ' ') {
 		std::cout << "Ya hay una pieza en la posicion elegida" << std::endl;
 		playerInputs(table, playerInputX, playerInputY);
 	}
@@ -37,18 +38,14 @@ void player(char table[ROWS][COLUMNS], int &playerInputX, int &playerInputY, int
 
 }
 
-int ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY, int &turn) {
-
-	if (turn == 9) {
-		return 0;
-	}
+void ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY, int &turn) {
 
 	srand(time(NULL));
 
 	iaInputX = rand() % 3;
 	iaInputY = rand() % 3;
 
-	while (table[iaInputX][iaInputY] != 'a') {
+	while (table[iaInputX][iaInputY] != ' ') {
 		iaInputX = rand() % 3;
 		iaInputY = rand() % 3;
 	}
@@ -57,27 +54,60 @@ int ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY, int &turn) {
 	turn++;
 }
 
-void tablero(char table[ROWS][COLUMNS]) {
+void tablero(char table[ROWS][COLUMNS], char tableroVisual[WHAT][WHAT]) {
 	for (int i = 0; i < COLUMNS; i++) {
 		for (int j = 0; j < ROWS; j++) {
-			table[i][j] = 'a';
+			table[i][j] = ' ';
 		}
 	}
+
+    for (int i = 0; i < WHAT; i++) {
+        for (int j = 0; j < WHAT; j++) {
+            tableroVisual[i][j] = ' ';
+        }
+    }
+
+    for (int a = 0; a < WHAT; a+= 4) {
+        for (int b = 0; b < WHAT; b++) {
+            tableroVisual[a][b] = '-';
+        }
+    }
+
+    for (int a = 2; a < 13; a += 4) {
+        for (int b = 0; b < WHAT; b+= 4) {
+            tableroVisual[a][b] = '|';
+        }
+    }
 }
 
-void tableroImprimir(char table[ROWS][COLUMNS]) {
-	for (int i = 0; i < COLUMNS; i++) {
-		for (int j = 0; j < ROWS; j++) {
-			std::cout << table[i][j] << " ";
-		}
-		std::cout << std::endl;
-	}
+void tableroImprimir(char table[ROWS][COLUMNS], char tableroVisual[WHAT][WHAT]) {
+    tableroVisual[2][2] = table[0][0];
+    tableroVisual[2][6] = table[0][1];
+    tableroVisual[2][10] = table[0][2];
+
+    tableroVisual[6][2] = table[1][0];
+    tableroVisual[6][6] = table[1][1];
+    tableroVisual[6][10] = table[1][2];
+
+    tableroVisual[10][2] = table[2][0];
+    tableroVisual[10][6] = table[2][1];
+    tableroVisual[10][10] = table[2][2];
+    
+    for (int i = 0; i < WHAT; i++) {
+        for (int j = 0; j < WHAT; j++) {
+            std::cout << tableroVisual[i][j];
+        }
+        std::cout << std::endl;
+    }
+
+    
 }
 void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
     int num = 0;
     int winX = 0;
     bool ehe = false;
     while (!ehe) {
+        winX = 0;
         for (int a = 0; a < 2; a++) {
             if (table[num][a] == 'X') {
                 winX++;
@@ -108,6 +138,7 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
     winX = 0;
     ehe = false;
     while (!ehe) {
+        winX = 0;
         for (int a = 0; a < 2; a++) {
             if (table[num][a] == 'O') {
                 winX++;
@@ -125,6 +156,7 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
             }
         }
         if (winX == 3) {
+            std::cout << "Ganan las O\n";
             ganar = true;
         }
 
@@ -146,7 +178,7 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
             num++;
         }
 
-        if (num >= 3) {
+        if (num == 3) {
             std::cout << "Ganan las X\n";
             ganar = true;
         }
@@ -163,7 +195,7 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
             num++;
         }
 
-        if (num >= 3) {
+        if (num == 3) {
             ganar = true;
             std::cout << "Ganan las X\n";
         }
@@ -180,7 +212,7 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
             num++;
         }
 
-        if (num >= 3) {
+        if (num == 3) {
             ganar = true;
             std::cout << "Ganan las O\n";
         }
@@ -197,7 +229,7 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
             num++;
         }
 
-        if (num >= 3) {
+        if (num == 3) {
             ganar = true;
             std::cout << "Ganan las O\n";
         }
@@ -206,15 +238,17 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
 
     for (int a = 0; a < ROWS; a++) {
         for (int b = 0; b < COLUMNS; b++) {
-            if (table[a][b] != 'a') {
+            if (table[a][b] != ' ') {
                 num++;
             }
         }
     }
 
-    if (num == 9) {
-        ganar = true;
-        std::cout << "Ha habido un empate\n";
+    if (!ganar) {
+        if (num == 9) {
+            ganar = true;
+            std::cout << "Ha habido un empate\n";
+        }
     }
 }
 
@@ -222,26 +256,27 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
 int main() {
 	
 	char table[COLUMNS][ROWS];
+    char tableroVisual[WHAT][WHAT];
 	int playerInputX, playerInputY;
 	int iaInputX, iaInputY;
 	int turn = 0;
     bool ganar = false;
     bool salir = false;
 
-	tablero(table);
-    while (!salir) {
+	tablero(table, tableroVisual);
+
         while (!ganar) {
-            tableroImprimir(table);
+            tableroImprimir(table, tableroVisual);
             playerInputs(table, playerInputX, playerInputY);
             player(table, playerInputX, playerInputY, turn);
             winOrLose(table, ganar);
             std::cout << "\n\n";
-            tableroImprimir(table);
-            ia(table, iaInputX, iaInputY, turn);
-            winOrLose(table, ganar);
-            std::cout << "\n\n";
-
+            tableroImprimir(table, tableroVisual);
+            if (!ganar) {
+                ia(table, iaInputX, iaInputY, turn);
+                winOrLose(table, ganar);
+                std::cout << "\n\n";
+            }
         }
         std::cout << "Termina";
-    }
 }
