@@ -24,12 +24,24 @@
     <ClCompile Include="elegirCasilla.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="comprobarHueco.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WinOrLose.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="tablero.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="elegirCasilla.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="comprobarHueco.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WinOrLose.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

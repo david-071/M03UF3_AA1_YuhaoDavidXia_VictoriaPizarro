@@ -26,7 +26,7 @@ void playerInputs(char table[ROWS][COLUMNS], int& playerInputX, int& playerInput
 }
 
 
-int ia(char table[ROWS][COLUMNS], int& iaInputX, int& iaInputY) {
+void ia(char table[ROWS][COLUMNS], int& iaInputX, int& iaInputY) {
 
 	srand(time(NULL));
 	iaInputX = rand() % 3;

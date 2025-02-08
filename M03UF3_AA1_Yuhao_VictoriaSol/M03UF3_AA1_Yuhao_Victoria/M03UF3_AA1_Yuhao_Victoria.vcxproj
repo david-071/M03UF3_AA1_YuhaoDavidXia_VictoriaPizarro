@@ -127,13 +127,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="comprobarHueco.cpp" />
     <ClCompile Include="elegirCasilla.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="tablero.cpp" />
+    <ClCompile Include="WinOrLose.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="comprobarHueco.h" />
     <ClInclude Include="elegirCasilla.h" />
     <ClInclude Include="tablero.h" />
+    <ClInclude Include="WinOrLose.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
