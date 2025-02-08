@@ -1,35 +1,36 @@
 #include <iostream>
+#include "comprobarHueco.h"
 #define ROWS 3
 #define COLUMNS 3
 
-void player(char table[ROWS][COLUMNS], int& playerInputX, int& playerInputY, int& turn) {
 
-	while (table[playerInputX][playerInputY] != 'a') {
-		std::cout << "Ya hay una pieza en la posicion elegida" << std::endl;
-		playerInputs(table, playerInputX, playerInputY);
+void playerInputs(char table[ROWS][COLUMNS], int& playerInputX, int& playerInputY) {
+
+	std::cout << "Ingrese una posicion valida (0-2): " << std::endl;
+	std::cin >> playerInputX >> playerInputY;
+
+	while ((playerInputX < 0 || playerInputX > 2)) {
+
+		std::cout << "Posicion X invalido. Ingrese un numero entre el 0 y el 2" << std::endl;
+		std::cin >> playerInputX;
+
 	}
 
-	table[playerInputX][playerInputY] = 'X';
-	turn++;
+	while ((playerInputY < 0 || playerInputY > 2)) {
 
+		std::cout << "Posicion Y invalido. Ingrese un numero entre el 0 y el 2" << std::endl;
+		std::cin >> playerInputY;
+
+	}
+	player(table, playerInputX, playerInputY);
 }
 
-int ia(char table[ROWS][COLUMNS], int& iaInputX, int& iaInputY, int& turn) {
 
-	if (turn == 9) {
-		return 0;
-	}
+int ia(char table[ROWS][COLUMNS], int& iaInputX, int& iaInputY) {
 
 	srand(time(NULL));
-
 	iaInputX = rand() % 3;
 	iaInputY = rand() % 3;
+	iaComprobar(table, iaInputX, iaInputY);
 
-	while (table[iaInputX][iaInputY] != 'a') {
-		iaInputX = rand() % 3;
-		iaInputY = rand() % 3;
-	}
-
-	table[iaInputX][iaInputY] = 'O';
-	turn++;
 }
