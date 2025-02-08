@@ -226,19 +226,22 @@ int main() {
 	int iaInputX, iaInputY;
 	int turn = 0;
     bool ganar = false;
+    bool salir = false;
 
 	tablero(table);
-	while (!ganar) {
-        tableroImprimir(table);
-		playerInputs(table, playerInputX, playerInputY);
-		player(table, playerInputX, playerInputY, turn);
-        winOrLose(table, ganar);
-        std::cout << "\n\n";
-        tableroImprimir(table);
-		ia(table, iaInputX, iaInputY, turn);
-        winOrLose(table, ganar);
-        std::cout << "\n\n";
-		
-	}
-	std::cout << "Termina";
+    while (!salir) {
+        while (!ganar) {
+            tableroImprimir(table);
+            playerInputs(table, playerInputX, playerInputY);
+            player(table, playerInputX, playerInputY, turn);
+            winOrLose(table, ganar);
+            std::cout << "\n\n";
+            tableroImprimir(table);
+            ia(table, iaInputX, iaInputY, turn);
+            winOrLose(table, ganar);
+            std::cout << "\n\n";
+
+        }
+        std::cout << "Termina";
+    }
 }
