@@ -4,6 +4,7 @@
 #include "tablero.h"
 #include "elegirCasilla.h"
 #include "WinOrLose.h"
+#include <windows.h>
 
 #define ROWS 3
 #define COLUMNS 3
@@ -14,15 +15,18 @@ int main() {
 	int playerInputX, playerInputY;
 	int iaInputX, iaInputY;
 	bool salir = false;
-
-
-	while (!salir) {
-		tablero(table);
-		playerInputs(table, playerInputX, playerInputY);
-		ia(table, iaInputX, iaInputY);
-
-	}
-
+	bool ganar = false;
+		
+		tableroInicio(table);
+		while (!ganar) {
+			tablero(table);
+			playerInputs(table, playerInputX, playerInputY);
+			winOrLose(table, ganar);
+			tablero(table);
+			ia(table, iaInputX, iaInputY);
+			winOrLose(table, ganar);
+			system("cls");
+		}
 	
 	std::cout << "Termina";
 }

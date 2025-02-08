@@ -1,5 +1,6 @@
 #include <iostream>
 #include "comprobarHueco.h"
+#include <time.h>
 #define ROWS 3
 #define COLUMNS 3
 
@@ -31,6 +32,15 @@ void ia(char table[ROWS][COLUMNS], int& iaInputX, int& iaInputY) {
 	srand(time(NULL));
 	iaInputX = rand() % 3;
 	iaInputY = rand() % 3;
+	while ((iaInputX < 0 || iaInputX > 2)) {
+		iaInputX = rand() % 3;
+
+	}
+
+	while ((iaInputY < 0 || iaInputY > 2)) {
+		iaInputY = rand() % 3;
+
+	}
 	iaComprobar(table, iaInputX, iaInputY);
 
 }

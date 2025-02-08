@@ -1,4 +1,5 @@
 #include <iostream>
+#include <time.h>
 #include "elegirCasilla.h"
 #include "comprobarHueco.h"
 #define ROWS 3
