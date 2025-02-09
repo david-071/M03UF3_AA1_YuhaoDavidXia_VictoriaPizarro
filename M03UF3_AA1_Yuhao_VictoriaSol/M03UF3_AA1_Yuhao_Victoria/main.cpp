@@ -252,6 +252,43 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
     }
 }
 
+void savePartida() {
+    int eleccion = -1;
+    std::cout << "Jugador, què vols fer?\n"
+        << "Posar una fitxa (0)\n"
+        << "Guardar partida (1)\n"
+        << "Tornar al menú principal (2)\n";
+    while (eleccion < 0 || eleccion > 2) {
+        std::cin >> eleccion;
+    }
+
+
+}
+void menu(bool &ganar, char table[COLUMNS][ROWS], char tableroVisual[WHAT][WHAT]) {
+    int eleccion = -1;
+    std::cout << " ---------- Tres en ratlla ----------\n\n";
+    std::cout << "    1 - Nova partida\n"
+        << "    2 - Carregar partida guardada\n"
+        << "    3 - Sortir\n\n" << "Tria una opcio:\n";
+    while (eleccion < 1 || eleccion > 3) {
+        std::cin >> eleccion;
+    }
+
+    switch (eleccion) {
+    case 1:
+        tablero(table, tableroVisual);
+        break;
+    case 2:
+        std::cout << "Carregant partida?\n";
+        break;
+    case 3:
+        ganar = true;
+        break;
+    default:
+        break;
+    }
+}
+
 
 int main() {
 	
@@ -263,8 +300,8 @@ int main() {
     bool ganar = false;
     bool salir = false;
 
-	tablero(table, tableroVisual);
 
+    menu(ganar, table, tableroVisual);
         while (!ganar) {
             tableroImprimir(table, tableroVisual);
             playerInputs(table, playerInputX, playerInputY);
