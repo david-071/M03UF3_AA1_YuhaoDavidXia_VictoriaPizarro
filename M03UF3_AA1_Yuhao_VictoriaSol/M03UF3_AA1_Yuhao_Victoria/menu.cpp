@@ -23,7 +23,7 @@ void menu(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[WHAT][WHAT]
         break;
     case 2:
         std::cout << "Carregant partida?\n";
-        cargarPartida();
+        cargarPartida(ganar, table, tableroVisual, repetir);
         break;
     case 3:
         repetir = true;
