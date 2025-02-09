@@ -1,6 +1,10 @@
 #include <iostream>
 #include <vector>
 #include <time.h>
+#include <fstream>
+#include "cargarPartida.h"
+#include "menu.h"
+
 
 #define ROWS 3
 #define COLUMNS 3
@@ -54,31 +58,6 @@ void ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY, int &turn) {
 	turn++;
 }
 
-void tablero(char table[ROWS][COLUMNS], char tableroVisual[WHAT][WHAT]) {
-	for (int i = 0; i < COLUMNS; i++) {
-		for (int j = 0; j < ROWS; j++) {
-			table[i][j] = ' ';
-		}
-	}
-
-    for (int i = 0; i < WHAT; i++) {
-        for (int j = 0; j < WHAT; j++) {
-            tableroVisual[i][j] = ' ';
-        }
-    }
-
-    for (int a = 0; a < WHAT; a+= 4) {
-        for (int b = 0; b < WHAT; b++) {
-            tableroVisual[a][b] = '-';
-        }
-    }
-
-    for (int a = 2; a < 13; a += 4) {
-        for (int b = 0; b < WHAT; b+= 4) {
-            tableroVisual[a][b] = '|';
-        }
-    }
-}
 
 void tableroImprimir(char table[ROWS][COLUMNS], char tableroVisual[WHAT][WHAT]) {
     tableroVisual[2][2] = table[0][0];
@@ -108,7 +87,7 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
     bool ehe = false;
     while (!ehe) {
         winX = 0;
-        for (int a = 0; a < 2; a++) {
+        for (int a = 0; a < 3; a++) {
             if (table[num][a] == 'X') {
                 winX++;
             }
@@ -117,9 +96,8 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
             std::cout << "Ganan las X\n";
             ganar = true;
         }
-
         winX = 0;
-        for (int a = 0; a < 2; a++) {
+        for (int a = 0; a < 3; a++) {
             if (table[a][num] == 'X') {
                 winX++;
             }
@@ -139,7 +117,7 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
     ehe = false;
     while (!ehe) {
         winX = 0;
-        for (int a = 0; a < 2; a++) {
+        for (int a = 0; a < 3; a++) {
             if (table[num][a] == 'O') {
                 winX++;
             }
@@ -150,7 +128,7 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
         }
 
         winX = 0;
-        for (int a = 0; a < 2; a++) {
+        for (int a = 0; a < 3; a++) {
             if (table[a][num] == 'O') {
                 winX++;
             }
@@ -261,32 +239,6 @@ void savePartida() {
     while (eleccion < 0 || eleccion > 2) {
         std::cin >> eleccion;
     }
-
-
-}
-void menu(bool &ganar, char table[COLUMNS][ROWS], char tableroVisual[WHAT][WHAT]) {
-    int eleccion = -1;
-    std::cout << " ---------- Tres en ratlla ----------\n\n";
-    std::cout << "    1 - Nova partida\n"
-        << "    2 - Carregar partida guardada\n"
-        << "    3 - Sortir\n\n" << "Tria una opcio:\n";
-    while (eleccion < 1 || eleccion > 3) {
-        std::cin >> eleccion;
-    }
-
-    switch (eleccion) {
-    case 1:
-        tablero(table, tableroVisual);
-        break;
-    case 2:
-        std::cout << "Carregant partida?\n";
-        break;
-    case 3:
-        ganar = true;
-        break;
-    default:
-        break;
-    }
 }
 
 
@@ -299,9 +251,11 @@ int main() {
 	int turn = 0;
     bool ganar = false;
     bool salir = false;
+    bool repetir = false;
 
 
-    menu(ganar, table, tableroVisual);
+    menu(ganar, table, tableroVisual, repetir);
+    while (!repetir) {
         while (!ganar) {
             tableroImprimir(table, tableroVisual);
             playerInputs(table, playerInputX, playerInputY);
@@ -315,5 +269,7 @@ int main() {
                 std::cout << "\n\n";
             }
         }
+        menu(ganar, table, tableroVisual, repetir);
+    }
         std::cout << "Termina";
 }
