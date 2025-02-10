@@ -30,7 +30,7 @@ void playerInputs(char table[ROWS][COLUMNS], int& playerInputX, int& playerInput
 	}
 }
 
-void player(char table[ROWS][COLUMNS], int &playerInputX, int &playerInputY, int &turn) {
+void player(char table[ROWS][COLUMNS], int &playerInputX, int &playerInputY) {
 
 	while (table[playerInputX][playerInputY] != ' ') {
 		std::cout << "Ya hay una pieza en la posicion elegida" << std::endl;
@@ -38,11 +38,10 @@ void player(char table[ROWS][COLUMNS], int &playerInputX, int &playerInputY, int
 	}
 
 	table[playerInputX][playerInputY] = 'X';
-	turn++;
 
 }
 
-void ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY, int &turn) {
+void ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY) {
 
 	srand(time(NULL));
 
@@ -55,7 +54,6 @@ void ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY, int &turn) {
 	}
 
 	table[iaInputX][iaInputY] = 'O';
-	turn++;
 }
 
 
@@ -248,7 +246,6 @@ int main() {
     char tableroVisual[WHAT][WHAT];
 	int playerInputX, playerInputY;
 	int iaInputX, iaInputY;
-	int turn = 0;
     bool ganar = false;
     bool salir = false;
     bool repetir = false;
@@ -259,12 +256,12 @@ int main() {
         while (!ganar) {
             tableroImprimir(table, tableroVisual);
             playerInputs(table, playerInputX, playerInputY);
-            player(table, playerInputX, playerInputY, turn);
+            player(table, playerInputX, playerInputY);
             winOrLose(table, ganar);
             std::cout << "\n\n";
             tableroImprimir(table, tableroVisual);
             if (!ganar) {
-                ia(table, iaInputX, iaInputY, turn);
+                ia(table, iaInputX, iaInputY);
                 winOrLose(table, ganar);
                 std::cout << "\n\n";
             }
