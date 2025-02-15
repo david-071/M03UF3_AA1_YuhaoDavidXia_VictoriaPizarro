@@ -112,7 +112,6 @@ int main() {
         while (!ganar) {                        //Se repite este bucle hasta que se gane o se empate
             tableroImprimir(table, tableroVisual);
             elegirAccion(ganar, table, tableroVisual, repetir, playerInputX, playerInputY); //Lo mandamos al menú de elegir de si guardar partida, poner una ficha o ir al menu principal
-            std::cout << playerInputX << "\n" << playerInputY << "\n";
             if ((playerInputX < 0 || playerInputX > 2) || (playerInputY < 0 || playerInputY > 2)) {     //Comprobamos que no haya un número extremadamente bajo o grande
                 playerInputs(table, playerInputX, playerInputY);
             }
