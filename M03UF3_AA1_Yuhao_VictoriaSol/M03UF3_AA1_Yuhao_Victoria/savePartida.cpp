@@ -4,6 +4,8 @@
 #include "menu.h"
 #include "playerInputs.h"
 #include "siName.h"
+
+//En esta función ponemos el nombre del archivo con el que lo queremos guardar
 void nameArch(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[TRECE][TRECE], bool& repetir, int& playerInputX, int& playerInputY) {
     std::string name;
     std::string menuu = "menu";
@@ -23,6 +25,7 @@ void nameArch(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[TRECE][
 
 }
 
+//Este es el menú del player, para que elija si poner ficha, guardar, volver al menu
 void elegirAccion(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[TRECE][TRECE], bool& repetir, int& playerInputX, int& playerInputY) {
     int eleccion = -1;
     std::cout << "Jugador, que vols fer?\n"
@@ -33,7 +36,7 @@ void elegirAccion(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[TRE
         std::cin >> eleccion;
     }
 
-    switch (eleccion) {
+    switch (eleccion) { //Depende de su elección le llevamos a la función que requiere lo que quiere hacer
     case 0:
         playerInputs(table, playerInputX, playerInputY);
         break;
