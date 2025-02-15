@@ -1,12 +1,10 @@
 #include <iostream>
 #include "cargarPartida.h"
 #include "tablero.h"
-#define ROWS 3
-#define COLUMNS 3
-#define WHAT 13
+#include "defines.h"
 
 
-void menu(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[WHAT][WHAT], bool& repetir) {
+void menu(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[TRECE][TRECE], bool& repetir) {
     int eleccion = -1;
     std::cout << " ---------- Tres en ratlla ----------\n\n";
     std::cout << "    1 - Nova partida\n"

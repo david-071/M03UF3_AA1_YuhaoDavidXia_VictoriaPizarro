@@ -4,17 +4,15 @@
 #include "menu.h"
 #include "tablero.h"
 #include <vector>
-#define ROWS 3
-#define COLUMNS 3
-#define WHAT 13
+#include "defines.h"
 
-void cargarPartida(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[WHAT][WHAT], bool& repetir) {
+void cargarPartida(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[TRECE][TRECE], bool& repetir) {
 	std::cout << "Escriu el nom de l'arxiu per carregar partida\n";
 	std::string saveName;
 	std::cin >> saveName;
 	std::string line;
-	char wha;
-	std::vector<std::string> yeah;
+	char ficha;
+	std::vector<std::string> tabRecopilado;
 	if (saveName == "menu") {
 		menu(ganar, table, tableroVisual, repetir);
 	}
@@ -28,33 +26,33 @@ void cargarPartida(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[WH
 	if (myfile.is_open()) {
 		while (std::getline(myfile, line)) {
 			std::cout << line << "\n";
-			yeah.push_back(line);
+			tabRecopilado.push_back(line);
 		}
-		line = yeah[0];
+		line = tabRecopilado[0];
 
 		for (int a = 0; a < COLUMNS; a++) {
-			wha = line[a];
-			table[0][a] = wha;
+			ficha = line[a];
+			table[0][a] = ficha;
 		}
-		line = yeah[1];
+		line = tabRecopilado[1];
 		for (int a = 0; a < COLUMNS; a++) {
-			wha = line[a];
-			table[1][a] = wha;
+			ficha = line[a];
+			table[1][a] = ficha;
 		}
-		line = yeah[2];
+		line = tabRecopilado[2];
 		for (int a = 0; a < COLUMNS; a++) {
-			wha = line[a];
-			table[2][a] = wha;
+			ficha = line[a];
+			table[2][a] = ficha;
 		}
 	}
 
 	for (int b = 0; b < ROWS; b++) {
-		if (yeah.empty()) {
-			yeah.erase(yeah.begin());
+		if (!tabRecopilado.empty()) {
+			tabRecopilado.erase(tabRecopilado.begin());
 		}
 	}
-	
 	myfile.close();
+	ganar = false;
 	cargarTab(table, tableroVisual);
 
 }

@@ -134,6 +134,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cargarPartida.h" />
+    <ClInclude Include="defines.h" />
     <ClInclude Include="menu.h" />
     <ClInclude Include="tablero.h" />
   </ItemGroup>

@@ -4,11 +4,7 @@
 #include <fstream>
 #include "cargarPartida.h"
 #include "menu.h"
-
-
-#define ROWS 3
-#define COLUMNS 3
-#define WHAT 13
+#include "defines.h"
 
 void playerInputs(char table[ROWS][COLUMNS], int& playerInputX, int& playerInputY) {
 
@@ -56,8 +52,7 @@ void ia(char table[ROWS][COLUMNS], int &iaInputX, int &iaInputY) {
 	table[iaInputX][iaInputY] = 'O';
 }
 
-
-void tableroImprimir(char table[ROWS][COLUMNS], char tableroVisual[WHAT][WHAT]) {
+void tableroImprimir(char table[ROWS][COLUMNS], char tableroVisual[TRECE][TRECE]) {
     tableroVisual[2][2] = table[0][0];
     tableroVisual[2][6] = table[0][1];
     tableroVisual[2][10] = table[0][2];
@@ -70,8 +65,8 @@ void tableroImprimir(char table[ROWS][COLUMNS], char tableroVisual[WHAT][WHAT]) 
     tableroVisual[10][6] = table[2][1];
     tableroVisual[10][10] = table[2][2];
     
-    for (int i = 0; i < WHAT; i++) {
-        for (int j = 0; j < WHAT; j++) {
+    for (int i = 0; i < TRECE; i++) {
+        for (int j = 0; j < TRECE; j++) {
             std::cout << tableroVisual[i][j];
         }
         std::cout << std::endl;
@@ -82,8 +77,8 @@ void tableroImprimir(char table[ROWS][COLUMNS], char tableroVisual[WHAT][WHAT]) 
 void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
     int num = 0;
     int winX = 0;
-    bool ehe = false;
-    while (!ehe) {
+    bool comprobacion = false;
+    while (!comprobacion) {
         winX = 0;
         for (int a = 0; a < 3; a++) {
             if (table[num][a] == 'X') {
@@ -106,14 +101,14 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
         }
 
         if (num == 3) {
-            ehe = true;
+            comprobacion = true;
         }
         num++;
     }
     num = 0;
     winX = 0;
-    ehe = false;
-    while (!ehe) {
+    comprobacion = false;
+    while (!comprobacion) {
         winX = 0;
         for (int a = 0; a < 3; a++) {
             if (table[num][a] == 'O') {
@@ -137,7 +132,7 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
         }
 
         if (num == 3) {
-            ehe = true;
+            comprobacion = true;
         }
         num++;
     }
@@ -243,7 +238,7 @@ void savePartida() {
 int main() {
 	
 	char table[COLUMNS][ROWS];
-    char tableroVisual[WHAT][WHAT];
+    char tableroVisual[TRECE][TRECE];
 	int playerInputX, playerInputY;
 	int iaInputX, iaInputY;
     bool ganar = false;
