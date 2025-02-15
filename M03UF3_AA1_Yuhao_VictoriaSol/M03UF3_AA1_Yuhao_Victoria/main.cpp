@@ -5,26 +5,8 @@
 #include "cargarPartida.h"
 #include "menu.h"
 #include "defines.h"
-
-void playerInputs(char table[ROWS][COLUMNS], int& playerInputX, int& playerInputY) {
-
-	std::cout << "Ingrese una posicion valida (0-2): " << std::endl;
-	std::cin >> playerInputX >> playerInputY;
-
-	while ((playerInputX < 0 || playerInputX > 2)) {
-
-		std::cout << "Posicion X invalido. Ingrese un numero entre el 0 y el 2" << std::endl;
-		std::cin >> playerInputX;
-
-	}
-
-	while ((playerInputY < 0 || playerInputY > 2)) {
-
-		std::cout << "Posicion Y invalido. Ingrese un numero entre el 0 y el 2" << std::endl;
-		std::cin >> playerInputY;
-
-	}
-}
+#include "playerInputs.h"
+#include "savePartida.h"
 
 void player(char table[ROWS][COLUMNS], int &playerInputX, int &playerInputY) {
 
@@ -223,18 +205,6 @@ void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {
     }
 }
 
-void savePartida() {
-    int eleccion = -1;
-    std::cout << "Jugador, què vols fer?\n"
-        << "Posar una fitxa (0)\n"
-        << "Guardar partida (1)\n"
-        << "Tornar al menú principal (2)\n";
-    while (eleccion < 0 || eleccion > 2) {
-        std::cin >> eleccion;
-    }
-}
-
-
 int main() {
 	
 	char table[COLUMNS][ROWS];
@@ -250,7 +220,7 @@ int main() {
     while (!repetir) {
         while (!ganar) {
             tableroImprimir(table, tableroVisual);
-            playerInputs(table, playerInputX, playerInputY);
+            elegirAccion(ganar, table, tableroVisual, repetir, playerInputX, playerInputY);
             player(table, playerInputX, playerInputY);
             winOrLose(table, ganar);
             std::cout << "\n\n";
