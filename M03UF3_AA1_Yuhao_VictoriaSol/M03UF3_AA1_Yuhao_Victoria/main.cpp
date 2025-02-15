@@ -56,159 +56,43 @@ void tableroImprimir(char table[ROWS][COLUMNS], char tableroVisual[TRECE][TRECE]
 
     
 }
-void winOrLose(char table[COLUMNS][ROWS], bool& ganar) {    //Void de comprobar si hemos ganado o no
-    int num = 0;
-    int winX = 0;
-    bool comprobacion = false;
 
-    //Comprobación de win de las X
-    while (!comprobacion) {                 //Mientras no se acabe de comprobar todo, no se acabará este while
-        winX = 0;
-        for (int a = 0; a < 3; a++) {       //Comprobamos verticalmente la primera columna, si en esa columna encuentra 3 X entonces winX será 3
-            if (table[num][a] == 'X') {     
-                winX++;
+bool checkWin(char table[ROWS][COLUMNS], char piece) {
+    for (int i = 0; i < 3; i++) {
+        if ((table[i][0] == piece && table[i][1] == piece && table[i][2] == piece) || // Mira si hemos ganado mediante filas
+            (table[0][i] == piece && table[1][i] == piece && table[2][i] == piece)) { // Mira si hemos ganado mediante columnas
+            return true;
+        }
+    }
+    if ((table[0][0] == piece && table[1][1] == piece && table[2][2] == piece) ||  // Mira si hemos ganado mendiante diagonal 
+        (table[0][2] == piece && table[1][1] == piece && table[2][0] == piece)) {  // Mira si hemos ganado mendiante diagonal inversa
+        return true;
+    }
+    return false;
+}
+
+void winOrLose(char table[ROWS][COLUMNS], bool& ganar) {
+    if (checkWin(table, 'X')) {
+        std::cout << "Ganan las X\n";
+        ganar = true;
+    }
+    else if (checkWin(table, 'O')) {
+        std::cout << "Ganan las O\n";
+        ganar = true;
+    }
+    else {
+        bool empate = true;
+        for (int i = 0; i < ROWS; i++) {
+            for (int j = 0; j < COLUMNS; j++) {
+                if (table[i][j] == ' ') {
+                    empate = false;
+                    break;
+                }
             }
         }
-        if (winX == 3) {                    //Si winX es 3, es que hay 3 x en esa columna y ganaremos
-            std::cout << "Ganan las X\n";
-            ganar = true;
-            comprobacion = true;            //Comprueba la siguiente fila y se acaba
-        }
-        winX = 0;                           //Reiniciamos el contador de encontrar Xs
-        for (int a = 0; a < 3; a++) {       //Comprobamos horizontalmente
-            if (table[a][num] == 'X') {
-                winX++;
-            }
-        }
-        if (winX == 3) {
-            std::cout << "Ganan las X\n";
-            ganar = true;
-            comprobacion = true;
-        }
-
-        if (num == 3) {                 //Si esto llega a 3, significa que hemos comprobado todas las columnas y se acaba el bucle
-            comprobacion = true;
-        }
-        num++;                          //Esto es para comprobar el resto de columnas o filas del tablero
-    }
-    num = 0;
-    winX = 0;
-    comprobacion = false;
-
-    //Comprobacion de las O, lo mismo que las X pero con las O
-    while (!comprobacion) {
-        winX = 0;
-        for (int a = 0; a < 3; a++) {
-            if (table[num][a] == 'O') {
-                winX++;
-            }
-        }
-        if (winX == 3) {
-            ganar = true;
-            comprobacion = true;
-            std::cout << "Ganan las O\n";
-        }
-
-        winX = 0;
-        for (int a = 0; a < 3; a++) {
-            if (table[a][num] == 'O') {
-                winX++;
-            }
-        }
-        if (winX == 3) {
-            std::cout << "Ganan las O\n";
-            comprobacion = true;
-            ganar = true;
-        }
-
-        if (num == 3) {
-            comprobacion = true;
-        }
-        num++;
-    }
-    num = 0;
-
-    if (!ganar) {                   //Si en una de las 2 anteriores comprobaciones hay una win horizontal o vertical, entonces esto no se ejecuta
-        if (table[0][0] == 'X') {   //Si encontramos la diagonal de izquierda arriba a derecha abajo ganan las X
-            num++;
-        }
-        if (table[1][1] == 'X') {
-            num++;
-        }
-        if (table[2][2] == 'X') {
-            num++;
-        }
-
-        if (num == 3) {
-            std::cout << "Ganan las X\n";
-            ganar = true;
-        }
-    }
-    num = 0;
-    if (!ganar) {               //Comprobamos la otra diagonal
-        if (table[0][2] == 'X') {
-            num++;
-        }
-        if (table[1][1] == 'X') {
-            num++;
-        }
-        if (table[2][0] == 'X') {
-            num++;
-        }
-
-        if (num == 3) {
-            ganar = true;
-            std::cout << "Ganan las X\n";
-        }
-    }
-    num = 0;        //Comprobamos diagonales de los O
-    if (!ganar) {
-        if (table[0][0] == 'O') {
-            num++;
-        }
-        if (table[1][1] == 'O') {
-            num++;
-        }
-        if (table[2][2] == 'O') {
-            num++;
-        }
-
-        if (num == 3) {
-            ganar = true;
-            std::cout << "Ganan las O\n";
-        }
-    }
-    num = 0;
-    if (!ganar) {
-        if (table[0][2] == 'O') {
-            num++;
-        }
-        if (table[1][1] == 'O') {
-            num++;
-        }
-        if (table[2][0] == 'O') {
-            num++;
-        }
-
-        if (num == 3) {
-            ganar = true;
-            std::cout << "Ganan las O\n";
-        }
-    }
-    num = 0;
-
-    for (int a = 0; a < ROWS; a++) {    //Comprobamos como de lleno está el tablero, si está lleno num será 9
-        for (int b = 0; b < COLUMNS; b++) {
-            if (table[a][b] != ' ') {
-                num++;
-            }
-        }
-    }
-
-    if (!ganar) {
-        if (num == 9) {     //Si en las otras comprobaciones no hay wins y esto llega a 9, entonces tenemos un empate
-            ganar = true;
+        if (empate) {
             std::cout << "Ha habido un empate\n";
+            ganar = true;
         }
     }
 }
@@ -220,7 +104,6 @@ int main() {
 	int playerInputX, playerInputY;
 	int iaInputX, iaInputY;
     bool ganar = false;
-    bool salir = false;
     bool repetir = false;
 
 
@@ -241,5 +124,7 @@ int main() {
         }
         if(!repetir)menu(ganar, table, tableroVisual, repetir);     //Esto es porque si en el otro menu nos vamos de vuelta al menu y si le damos a salir, podamos salir.
     }
-        std::cout << "Termina";
+
+    std::cout << "Termina";
+    return 0;
 }
