@@ -60,5 +60,10 @@ void escribirArchivo(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[
 		file1 << "\n";
 	}
 	file1.close();
+	for (int a = 0; a < ROWS; a++) {
+		if (!tab.empty()) {
+			tab.erase(tab.begin());
+		}
+	}
 	elegirAccion(ganar, table, tableroVisual, repetir, playerInputX, playerInputY);
 }

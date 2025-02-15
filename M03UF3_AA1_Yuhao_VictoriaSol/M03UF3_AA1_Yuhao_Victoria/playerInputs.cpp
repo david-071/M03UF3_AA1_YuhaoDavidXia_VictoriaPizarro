@@ -1,7 +1,6 @@
 #include<iostream>
 #include "defines.h"
 void playerInputs(char table[ROWS][COLUMNS], int& playerInputX, int& playerInputY) {
-
 	std::cout << "Ingrese una posicion valida (0-2): " << std::endl;
 	std::cin >> playerInputX >> playerInputY;
 
