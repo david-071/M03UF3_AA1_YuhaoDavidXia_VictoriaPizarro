@@ -27,6 +27,15 @@
     <ClCompile Include="tablero.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="savePartida.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="playerInputs.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="siName.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="cargarPartida.h">
@@ -39,6 +48,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="defines.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="savePartida.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="playerInputs.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="siName.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

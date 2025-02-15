@@ -18,7 +18,7 @@ void cargarPartida(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[TR
 	}
 
 	std::ifstream myfile;
-	myfile.open(saveName+".txt", std::ios::in);
+	myfile.open(saveName+".tictacsave", std::ios::in);
 	if (!myfile.is_open()) {
 		std::cout << "No existeix tal arxiu\n";
 		menu(ganar, table, tableroVisual, repetir);
