@@ -31,29 +31,21 @@ void cargarPartida(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[WH
 			yeah.push_back(line);
 		}
 		line = yeah[0];
-		wha = line[0];
-		std::cout << wha << "\n";
-		table[0][0] = wha;
-		wha = line[1];
-		table[0][1] = wha;
-		wha = line[2];
-		table[0][2] = wha;
 
+		for (int a = 0; a < COLUMNS; a++) {
+			wha = line[a];
+			table[0][a] = wha;
+		}
 		line = yeah[1];
-		wha = line[0];
-		table[1][0] = wha;
-		wha = line[1];
-		table[1][1] = wha;
-		wha = line[2];
-		table[1][2] = wha;
-
+		for (int a = 0; a < COLUMNS; a++) {
+			wha = line[a];
+			table[1][a] = wha;
+		}
 		line = yeah[2];
-		wha = line[0];
-		table[2][0] = wha;
-		wha = line[1];
-		table[2][1] = wha;
-		wha = line[2];
-		table[2][2] = wha;
+		for (int a = 0; a < COLUMNS; a++) {
+			wha = line[a];
+			table[2][a] = wha;
+		}
 	}
 
 	for (int b = 0; b < ROWS; b++) {
