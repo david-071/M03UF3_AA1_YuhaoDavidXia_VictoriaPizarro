@@ -10,7 +10,7 @@
 
 void player(char table[ROWS][COLUMNS], int &playerInputX, int &playerInputY) {  //Colocación de la posición elegida por el player
 
-	while (table[playerInputX][playerInputY] != ' ') {  //Si no esta vacio lo escogido lo mandamos a volver a elegir
+	if (table[playerInputX][playerInputY] != ' ') {  //Si no esta vacio lo escogido lo mandamos a volver a elegir
 		std::cout << "Ya hay una pieza en la posicion elegida" << std::endl;
 		playerInputs(table, playerInputX, playerInputY);
 	}
@@ -112,6 +112,10 @@ int main() {
         while (!ganar) {                        //Se repite este bucle hasta que se gane o se empate
             tableroImprimir(table, tableroVisual);
             elegirAccion(ganar, table, tableroVisual, repetir, playerInputX, playerInputY); //Lo mandamos al menú de elegir de si guardar partida, poner una ficha o ir al menu principal
+            std::cout << playerInputX << "\n" << playerInputY << "\n";
+            if ((playerInputX < 0 || playerInputX > 2) || (playerInputY < 0 || playerInputY > 2)) {     //Comprobamos que no haya un número extremadamente bajo o grande
+                playerInputs(table, playerInputX, playerInputY);
+            }
             if(!repetir)player(table, playerInputX, playerInputY);      //Si repetir esta en true entonces es que no hemos seleccionado una ficha y eso genera error
             winOrLose(table, ganar);    //Comprobar si gana o no
             std::cout << "\n\n";
