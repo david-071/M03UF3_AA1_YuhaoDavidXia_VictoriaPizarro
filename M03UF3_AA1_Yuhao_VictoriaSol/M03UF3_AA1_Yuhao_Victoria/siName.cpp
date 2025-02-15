@@ -4,40 +4,47 @@
 #include "savePartida.h"
 #include "defines.h"
 
-
 //Y esta es la función de guardar partida
 void escribirArchivo(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[TRECE][TRECE], bool& repetir, int& playerInputX, int& playerInputY, std::string &name) {
 	bool escogeix = false;
 	int eleccio;
 	std::vector<std::string> tab;
-	//std::string nameArchivo = name + ".tictacsave";
-	//std::ofstream file(nameArchivo, std::ios::out);
-
-	//if (file.fail()) {
-	//	std::cout << "Aquest arxiu ja existeix, vols reemplaçar-ho o vols canviar el name?\n";
-	//	std::cout << "0, per canviar el nom\n1, per reemplaçar l'arxiu\n";
-
-	//	while (!escogeix) {
-	//		std::cin >> eleccio;
-	//		if (eleccio < 0 || eleccio > 1) {
-	//			escogeix = false;
-	//		}
-	//		else {
-	//			escogeix = true;
-	//		}
-	//	}
-	//	if (eleccio == 0) {
-	//		nameArch(ganar, table, tableroVisual, repetir, playerInputX, playerInputY);
-	//	}
-	//}		
-	//file.close();
-	//Guardar partida
 	std::ofstream file1;	//Abrimos un archivo con el nombre que nos haya indicado el jugador
 	file1.open(name + ".tictacsave", std::ios::out | std::ios::trunc);
+	// Verificamos si el archivo ya existe
+	if (file1.is_open()) {
+		// El archivo ya existe, preguntamos al usuario si desea reemplazarlo
+		int eleccion;
+		std::cout << "El archivo " << name << ".tictacsave ya existe.\n";
+		std::cout << "Deseas reemplazarlo? (1 para si, 0 para no): ";
+
+		// Esperamos una entrada válida
+		while (true) {
+			std::cin >> eleccion;
+			if (eleccion == 1 || eleccion == 0) {
+				break;
+			}
+			else {
+				std::cout << "Opcion no valida. Por favor, ingresa 1 para reemplazar o 0 para no hacerlo: ";
+			}
+		}
+
+		// Si no quiere reemplazar, pedimos un nuevo nombre para el archivo
+		if (eleccion == 0) {
+			std::cout << "Ingresa un nuevo nombre para el archivo: ";
+			std::cin >> name;  // Pedimos un nuevo nombre
+			file1.close();  // Cerramos el archivo abierto para poder trabajar con uno nuevo
+
+			// Intentamos abrir el archivo con el nuevo nombre
+			file1.open(name + ".tictacsave", std::ios::out | std::ios::trunc);
+		}
+	}
+
 	if (!file1.is_open()) {		//Si no se puede tenemos error
 		std::cout << "Error\n";
 		return;
 	}
+
 	std::string line;	//Creamos una string
 	for (int a = 0; a < 3; a++) {	//Le ponemos de valor esa string los valores de la primera fila, como? concatenando
 		line = line +table[0][a];
@@ -67,5 +74,6 @@ void escribirArchivo(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[
 			tab.erase(tab.begin());
 		}
 	}
+
 	elegirAccion(ganar, table, tableroVisual, repetir, playerInputX, playerInputY);	//Lo enviamos al menu del player (el principal no)
 }
