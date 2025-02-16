@@ -8,21 +8,22 @@
 void escribirArchivo(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[TRECE][TRECE], bool& repetir, int& playerInputX, int& playerInputY, std::string &name) {
 	bool escogeix = false;
 	int eleccio;
+	bool opcionValida = false;
 	std::vector<std::string> tab;
 	std::ofstream file1;	//Abrimos un archivo con el nombre que nos haya indicado el jugador
 	file1.open(name + ".tictacsave", std::ios::out | std::ios::trunc);
 	// Verificamos si el archivo ya existe
 	if (file1.is_open()) {
-		// El archivo ya existe, preguntamos al usuario si desea reemplazarlo
+		// Si el archivo ya existe, preguntamos al usuario si desea reemplazarlo
 		int eleccion;
 		std::cout << "El archivo " << name << ".tictacsave ya existe.\n";
 		std::cout << "Deseas reemplazarlo? (1 para si, 0 para no): ";
 
-		// Esperamos una entrada válida
-		while (true) {
+		// Si input del jugador no es valido esperamos a un input valido
+		while (!opcionValida) {
 			std::cin >> eleccion;
 			if (eleccion == 1 || eleccion == 0) {
-				break;
+				opcionValida = true;
 			}
 			else {
 				std::cout << "Opcion no valida. Por favor, ingresa 1 para reemplazar o 0 para no hacerlo: ";
@@ -32,9 +33,8 @@ void escribirArchivo(bool& ganar, char table[COLUMNS][ROWS], char tableroVisual[
 		// Si no quiere reemplazar, pedimos un nuevo nombre para el archivo
 		if (eleccion == 0) {
 			std::cout << "Ingresa un nuevo nombre para el archivo: ";
-			std::cin >> name;  // Pedimos un nuevo nombre
-			file1.close();  // Cerramos el archivo abierto para poder trabajar con uno nuevo
-
+			std::cin >> name;
+			file1.close();
 			// Intentamos abrir el archivo con el nuevo nombre
 			file1.open(name + ".tictacsave", std::ios::out | std::ios::trunc);
 		}
